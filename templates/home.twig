@@ -1,0 +1,52 @@
+
+{% extends "layout.twig" %}
+
+	{% block head %}Acceuil/home{% endblock %}
+
+	{% block titre %}L'annonceur{% endblock %}
+
+	{% block userName %}
+		{% if prenom is defined %}
+			{{prenom}} {{nom}}
+			{% else %}
+				Visiteur
+		{% endif %}
+	{% endblock %}
+
+	{% block strConnection %}
+		{% if prenom is defined %}
+			Mon Compte
+				{% else %}
+					Se Connecter/ S'inscrire
+		{% endif %}
+	{% endblock %}
+
+	{% block filAriane %}<a href="{{url}}">Accueil</a>{% endblock %}
+
+	{% block content %}
+	<br><br><br><br><br><br></br>
+				<span><a href="?action=listerAnnonceAjax1"> Lien vers page twig AJAX </a></span><br><br><br><br><br><br>
+	<div class="row ">
+
+		<div class="input-group col-md-7 col-lg-7 col-xs-12 col-sm-12 ml-auto mr-auto">
+			<div class="input-group-prepend">
+				<form method="post" action="{{url}}?action=selectRubrique">
+					<label class="input-group-text" for="inputGroupSelect01">Rubrique</label>
+					</div>
+					<select class="custom-select" id="inputGroupSelect01" name="ID_RUBRIQUE">
+						<option selected disabled>Que Recherchez-vous ?</option>
+							{% for rub in rubs %}
+								<option value={{rub.ID_RUBRIQUE}} id="{{rub.ID_RUBRIQUE}}" >
+									{{rub.LIBELLE}}
+								</option>
+				 			{% endfor %}
+					</select>
+					{#<input type="search" name="query" placeholder="Je recherche..">#}
+					<input class="input-group-text" for="inputGroupSelect01" type="submit" value ="Rechercher">
+				</form>
+		</div>
+
+
+	
+	</div>
+{% endblock %}

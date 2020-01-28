@@ -1,0 +1,6 @@
+{
+    "name": "petrel/annonce",
+    "require": {
+        "symfony/asset": "^5.0"
+    }
+}

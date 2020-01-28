@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="fr">
+
+	<head>
+		<meta charset="utf-8">
+		<title>
+			{% block head %}{% endblock %}
+		</title>
+		<link rel="stylesheet" href="Bootstrap/css/bootstrap.css">
+		<link rel="stylesheet" href="Bootstrap/css/style.css">
+		<link rel="stylesheet" href="Bootstrap/css/bootstrap.bundle.js">
+		<link rel="stylesheet" href="https://unpkg.com/popper.js">
+		<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+		<script src="Bootstrap/script/jQuerry.js" charset="utf-8"></script>
+		<script src="Bootstrap/script/script.js" charset="utf-8"></script>
+		<script src="Bootstrap/script/monJQ.js" charset="utf-8"></script>
+		<script src="https://kit.fontawesome.com/23a273ab75.js" crossorigin="anonymous"></script>
+		<link rel="shortcut icon" href="Bootstrap/img/favicon.ico" type="image/x-icon">
+		
+
+	
+		
+	</head>
+
+	<body>
+		<div class="container-fluid">
+
+			<div class="row">
+				
+					<article class="col-md-8 col-lg-8 col-xs-12 col-sm-12">
+						<h1 class="text-center titre">L'annonceur</h1>
+						<h6 class="text-center">De bonne affaires</h6>
+					</article>
+				
+				<article class="col-md-2 col-lg-2 col-xs-12 col-sm-12 ml-auto">
+					<div class="col-md-7 col-lg-7 col-xs-12 col-sm-12 ml-auto" id="connexion">
+						<img src="Bootstrap/img/logo-personne.png" class="img-responsive" alt="logo personne">
+					</div>
+				</article>
+				<article class="col-md-2 col-lg-2 col-xs-12 col-sm-12  mr-auto ml-auto">
+					<p class="">
+						Bienvenue
+						<b>
+							{% block userName %}{% endblock %}
+						</b>
+					</p>
+
+					<a type="button" href={% if prenom is defined %} '{{url}}?action=monCompte'  {% else %} '{{url}}?action=inscription' {% endif %} class="btn btn-primary"> {% block strConnection %}{% endblock %}
+						<a/>
+						{% if prenom is defined %}
+						
+							<a href='{{url}}?action=logout'>Me déconnecter<a/>
+							{% endif %}
+						</article>
+					</div>
+					<div class="breadcrumb">{% block filAriane %}{% endblock %}</div>
+				
+							
+						{% block content %}
+						{% endblock %}
+					
+				</div>
+			</body>
+		</body>
+	</body>
+</html>

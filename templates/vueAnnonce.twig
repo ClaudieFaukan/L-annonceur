@@ -1,0 +1,137 @@
+{% extends "layout.twig" %}
+
+{% block head %}Liste des annonces {% endblock %}
+
+
+{% block titre %}L'annonceur
+{% endblock %}
+{% block userName %}
+	{% if prenom is defined %}
+		{{prenom}}
+		{{nom}}
+	{% else %}
+		Visiteur
+	{% endif %}
+{% endblock %}
+
+{% block strConnection %}
+	{% if prenom is defined %}
+		Mon Compte
+		{% else %}
+			Se Connecter/ S'inscrire
+	{% endif %}
+{% endblock %}
+
+
+{% block content %}
+	{#############################################	HEADER	######################################################################}
+		<div class="row">
+
+			<a href="{{url}}?action=createAnnonce" class="btn btn-primary col-md-4 col-lg-4 col-xs-12 col-sm-12 ml-auto">
+				<span>
+					<strong>
+						<i class="fas fa-plus">
+							Créer une annonce
+						</i>
+					</strong>
+				</span>
+			</a>
+
+			<div class="input-group col-md-3 col-lg-3 col-xs-3 col-sm-3 mr-auto">
+				<div class="input-group-prepend">
+					<form action="{{url}}?action=selectRubrique" method="post">
+						<label class="input-group-text" for="inputGroupSelect01">Rubrique</label>
+					</div>
+					<select class="custom-select" id="inputGroupSelect01" name="ID_RUBRIQUE">
+						<option selected>Que Recherchez-vous ?</option>
+						{% for rub in rubs %}
+							<option value={{rub.ID_RUBRIQUE}} name="ID_RUBRIQUE">
+								{{rub.LIBELLE}}
+							</option>
+						{% endfor %}
+					</select>
+					<div class="input-group-prepend">
+						<input class="input-group-text" for="inputGroupSelect01" type="submit" value="Cherchez">
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<hr>
+		<br>
+
+	{############################################################# ANNONCE	################################################################}
+	<div class="container list_annonce">
+		<div class="row">
+			<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 ml-auto mr-auto Entete " a href="#">{{annonce.EN_TETE}}</div>
+		</div>
+		<div class="row">
+			{#########################		carousel		############################################}
+			<article class="col-md-12 col-lg-12 col-xs-12 col-sm-12">
+							<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+								<ol class="carousel-indicators">
+									<li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+									<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+									<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+								</ol>
+								<div class="carousel-inner">
+								{% for image in images %}
+							
+											<div class="carousel-item {% if loop.index0 == 0 %}active{% endif %}">
+										
+												<img src="{{image.HREF}}" class="d-block w-25 mr-auto ml-auto " alt="...">
+									
+										
+										</div>
+										
+											{% endfor %}
+
+										
+									
+									
+								</div>
+								<a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+									<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+									<span class="sr-only">Previous</span>
+								</a>
+								<a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+									<span class="carousel-control-next-icon" aria-hidden="true"></span>
+									<span class="sr-only">Next</span>
+								</a>
+							</div>
+			</article>
+
+			<article class="col-md-9 col-lg-9 col-xs-12 col-sm-12 ml-auto mr-auto">
+				<hr>
+				<div>
+					<br>
+					<p>{{annonce.CORP}}</p>
+
+				</div>
+			</article>
+
+			<article class="col-md-9 col-lg-9 col-xs-12 col-sm-12 ml-auto mr-auto">
+				<hr>
+				<div class="row">
+					<br>
+					Poster par :
+					<b>{{annonce.PRENOM}}
+						{{annonce.NOM}}
+					</b>
+					<b>
+						<a href="mailto:{{annonce.MAIL}}" style="padding:0 0 0 50px;">Le contacter par mail</a>
+					</b>
+					<p id="dd" style="padding:0 0 0 50px;">
+						Date de dépot :
+						{{annonce.DATE_DEPOT}}</p>
+					<i class="fa fa-eye" aria-hidden="true" style="padding:0 0 0 50px;">
+						Annonce vue :
+						{{nbr_vues}}</i>
+				</div>
+			</article>
+		</div>
+	</div>
+	<br>
+
+
+{% endblock %}

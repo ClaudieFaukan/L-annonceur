@@ -1,0 +1,112 @@
+{% extends "layout.twig" %}
+
+{% block head %}Modifier votre annonce{% endblock %}
+{% block titre %}L'annonceur
+{% endblock %}
+{% block userName %}
+	{% if prenom is defined %}
+		{{prenom}}
+		{{nom}}
+	{% else %}
+		Visiteur
+	{% endif %}
+{% endblock %}
+{% block strConnection %}{% if prenom is defined %}
+		Mon Compte
+	{% else %}
+	Se Connecter/ S'inscrire
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+  	{############################################################   			                    #############################################################}
+		{############################################################   FORMULAIRE UPDATE ANNONCE  #############################################################}
+		{############################################################   			                    #############################################################}
+
+      {############################################################    RUBRIQUE     ##########################################################################}
+    <div class="container-fluid text-center">
+      <hr><br>
+      <form action="{{url}}?action=updateAnnonceBDD" method="post" enctype="multipart/form-data">
+        <div id="group_option" class="input-group col-md-5 col-lg-4 col-xs-12 col-sm-12 ml-auto mr-auto rub_ann">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Rubrique</label>
+          </div>
+          <select class="custom-select" name="id_rubrique" id="rub_id">
+           {% for rub in rubs %}
+              {% if rub.ID_RUBRIQUE == annonce.ID_RUBRIQUE %}
+                 <option selected value="{{rub.ID_RUBRIQUE}}">{{ rub.LIBELLE }}</option>
+               {% endif %}
+              <option type="text" id="rub_id" value="{{rub.ID_RUBRIQUE}}">
+                  {{rub.LIBELLE}}
+              </option>
+            {% endfor %}
+
+          </select>
+        </div>
+        <div class="erreur_message"></div>
+     {############################################################    TITRE     ##########################################################################}
+          <div class="form-group">
+            <label for="InputEntete">Titre de l'annonce :</label>
+            <input id="titre_annonce" name="titre_annonce" type="text" class="form-control col-md-4 col-lg-4 col-xs-12 col-sm-12 ml-auto mr-auto" value="{{annonce.EN_TETE}}">
+            
+            <div class="erreur_message"></div>
+          </div>
+   {############################################################    DESCRIPTION     ##########################################################################}       
+          <div class="form-group">
+            <label for="InputCorp">Description :</label>
+            <textarea id="description_id"  name="description_ann" type="text" class="form-control col-md-4 col-lg-4 col-xs-12 col-sm-12 ml-auto mr-auto" cols="40" rows="5" >{{annonce.CORP}}</textarea>
+            <div class="erreur_message"></div>
+          </div>
+  {############################################################    DUREE     ##########################################################################}   
+          <div class="input-group col-md-5 col-lg-4 col-xs-12 col-sm-12 ml-auto mr-auto rub_ann">
+            <div class="input-group-prepend">
+              <label class="input-group-text" for="inputGroupSelect01">Durée</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01" name="duree">
+              <option type="text"  value="40" selected>L'annonce sera en ligne pour 40 jours</option>
+              <option type="text"  value="30">L'annonce sera en ligne pour 30 jours</option>
+              <option type="text"  value="20">L'annonce sera en ligne pour 20 jours</option>
+              <option type="text"  value="10">L'annonce sera en ligne pour 10 jours</option>
+            </select>
+          </div>
+          <hr>
+          <input type="hidden" name="ID_ANNONCE" value={{annonce.ID_ANNONCE}}>
+              
+  {############################################################    AJOUT PHOTOS     ##########################################################################}
+       <h5>
+            Ajouts de photo
+          </h5>
+          <div class="container">
+            <div class="row">
+              {% set i = 0 %}
+              {% for image in images %}
+                {% set i = i + 1 %}
+                <article class="col-md-4 col-lg-4 col-xs-12 col-sm-12 ">
+                  <div class="col-md-12 col-lg-8 col-xs-8 col-sm-8 ml-auto imgUp">
+                    <img src="{{image.HREF}}" class="imagePreviewUpdate" id='imagePreviewUpdate{{i}}'>
+                    <input type="hidden" name="OLD_ID_IMAGE_{{i}}" value="{{image.ID_IMAGE}}">
+                    <input type="hidden" name="OLD_HREF_{{i}}" value="{{image.HREF}}">
+
+                    <label class="btn btn-primary">
+                      <i class="fa fa-plus imgAdd"></i>
+                      Upload<input type="file" id="imgInpUpdate{{i}}" name="file{{i}}" class="uploadFile img" value="Upload Photo" style="width: 0px;height: 0px;overflow: hidden;" multiple accept=".png, .jpg, .jpeg, .gif">
+                    </label>
+                  </div>
+                  <!-- col-2 -->
+                </article>
+              {% endfor %}
+            </div>
+            <!-- row -->
+          </div>
+          <!-- container -->
+          <hr>
+
+                      
+          
+   {############################################################    ENVOI DE FORMULAIRE     ##########################################################################}
+          <button class="btn btn-primary ol-md-4 col-lg-4 col-xs-12 col-sm-12 ml-auto mr-auto" type="submit" id="subm_id">
+          <span class="fa fa-send" style="color:#4f4;"></span> Modifier mon annonce</button>
+    </form>
+        <br><br>
+  </div>
+{% endblock %}

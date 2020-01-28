@@ -1,0 +1,82 @@
+{% extends "layout.twig" %}
+
+		
+			{% block head %}Toutes nos annonces - 	{% for rub in rubs %}
+								{% if rub.ID_RUBRIQUE == rubriqueafficher %}
+								{{rub.LIBELLE}}
+									{% else %}
+										
+								{% endif %}
+							{% endfor %}
+			{% endblock %}
+
+	{% block titre %}L'annonceur{% endblock %}
+
+	{% block userName %}
+		{% if prenom is defined %}
+			{{prenom}} {{nom}}
+		{% else %}
+			Visiteur
+		{% endif %}
+	{% endblock %}
+
+	{% block strConnection %}
+		{% if prenom is defined %}
+			Mon Compte
+			{% else %}
+				Se Connecter/ S'inscrire
+		{% endif %}
+	{% endblock %}
+
+
+	{% block content %}
+	
+
+		<body>
+			{##############################################		HEADER 		#########################################################################}
+			<div class="container-fluid">
+				<div class="row">
+					<a href="{{url}}?action=createAnnonce" class="btn btn-primary col-md-4 col-lg-4 col-xs-12 col-sm-12 ml-auto">
+						<span>
+							<strong>
+								<i class="fas fa-plus">
+									Créer une annonce
+								</i>
+							</strong>
+						</span>
+					</a>
+				
+					<div class="input-group col-md-3 col-lg-3 col-xs-3 col-sm-3 mr-auto">
+						<div class="input-group-prepend">
+							<form action="{{url}}?action=selectRubrique" method="post">
+								<label class="input-group-text" for="inputGroupSelect01">Rubrique</label>
+						</div>
+						<select class="custom-select" id="inputGroupSelect01" name="ID_RUBRIQUE">
+						
+							{% for rub in rubs %}
+								{% if rub.ID_RUBRIQUE == rubriqueafficher %}
+									<option selected value={{rub.ID_RUBRIQUE}} name="ID_RUBRIQUE">{{rub.LIBELLE}}</option>
+									{% else %}
+										<option value={{rub.ID_RUBRIQUE}} name="ID_RUBRIQUE">
+											{{rub.LIBELLE}}
+										</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+							<div class="input-group-prepend">
+								<input class="input-group-text" for="inputGroupSelect01" type="submit" value="Cherchez">
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<hr>
+				{##############################################		ANNONCES RUBRIQUE 		#########################################################################}
+                <div align="center">
+                    <h1> Féliciation vous venez de confirmer votre adresse mail</h1>
+                    <br> <br> <br>
+                    <h4>Veuillez vous connecter pour accéder à votre compte </h4>
+                
+                </div>
+                    
+	{% endblock %}

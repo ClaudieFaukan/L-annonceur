@@ -1,0 +1,31 @@
+Créer le contenue pour l'administrateur avec fonction:
+    
+
+    -Mettre des protection en cas de vide et HTML entities lors de saisie
+
+    - Revoir la selction de recherche par utilistateur ou rubrique en recherche taper->(utiliser cette méthode a ajouter dans le principale pour rechercher des annonces précise)
+
+POUR TOUTES LES PAGES :
+
+    - Mettre des commentaire pertinents..
+
+    - Mettre en forme toutes les pages
+
+   ! - Verifier les try and catch !
+    
+    - Ne pas metttre de majusule sur les première lettre des dossiers
+
+    - AJOUTER LE HEADER PARTOUT ! -> verifier le code main du coup et les pages twig
+
+    - Faire le fil d'arianne
+
+
+MAIN.PHP:
+    -METTRE SEULEMENT SESSION et modifier si necessaire dans la page genre SESSIOn.PRENOM etc..
+
+
+
+    MISE EN PAGE EFFECTUER :
+    - compte administarateur.twig
+    - createAnnonce.twig
+    - updateAnnonce.twig

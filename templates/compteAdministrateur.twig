@@ -1,0 +1,514 @@
+{% extends "layout.twig" %}
+
+{% block head %}
+	Mon compte
+{% endblock %}
+
+{% block titre %}L'annonceur
+{% endblock %}
+
+{% block userName %}
+	{% if prenom is defined %}
+		{{prenom}}
+		{{nom}}
+	{% else %}
+		Visiteur
+	{% endif %}
+{% endblock %}
+
+{% block strConnection %}
+	{% if prenom is defined %}
+		Mon Compte
+	{% else %}
+		Se Connecter/ S'inscrire
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+	{############################################################   			    #############################################################}
+	{############################################################   HEADER SITE     #############################################################}
+	{############################################################   			    #############################################################}
+
+	<div class="row">
+
+		<a href="{{url}}?action=createAnnonce" class="btn btn-primary col-md-4 col-lg-4 col-xs-12 col-sm-12 ml-auto">
+			<span>
+				<strong>
+					<i class="fas fa-plus">
+						Créer une annonce
+					</i>
+				</strong>
+			</span>
+		</a>
+
+		<div class="input-group col-md-3 col-lg-3 col-xs-3 col-sm-3 mr-auto">
+			<div class="input-group-prepend">
+				<form action="{{url}}?action=selectRubrique" method="post">
+					<label class="input-group-text" for="inputGroupSelect01">Rubrique</label>
+				</div>
+				<select
+					class="custom-select" id="inputGroupSelect01" name="ID_RUBRIQUE">
+					{#METTRE LE BUTON ENVOIE LA RECHERCHE AVEC LIEN ADEQUAT #}
+					<option selected>Que Recherchez-vous ?</option>
+					{% for rub in rubs %}
+						<option value={{rub.ID_RUBRIQUE}} name="ID_RUBRIQUE">
+							{{rub.LIBELLE}}
+						</option>
+					{% endfor %}
+				</select>
+				<div class="input-group-prepend">
+					<input class="input-group-text" for="inputGroupSelect01" type="submit" value="Cherchez">
+				</div>
+			</form>
+		</div>
+
+	</div>
+	<hr>
+	<br>
+	<div clas="container-fluid">
+		{############################################################   			    #############################################################}
+		{############################################################   DATA ANALITYCS  #############################################################}
+		{############################################################   			    #############################################################}
+		
+		<div class="content-wrapper">
+			<div class="container-fluid">
+				<div class="row">
+
+					<!-- Icon Cards-->
+					<div class="col-lg-2 col-md-2 col-sm-6 col-12 mb-2 mt-4">
+						<div class="inforide">
+							<div class="row">
+								<div class="col-lg-2 col-md-2 col-sm-4 col-4 rideone">
+									<img src="./Bootstrap/img/calendar.png">
+								</div>
+								<div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
+									<h4>Visite sur page accueil</h4>
+									<h2>{{vue_acceuil}}</h2>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				<div class="2 mt-4">
+					<div class="inforide">
+						<div class="row">
+							<div class="col-lg-2 col-md-2 col-sm-6 col-4 ridethree">
+								<img src="./Bootstrap/img/eye.png">
+							</div>
+							<div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
+								<h4>Nombres de visite aujourd'hui</h4>
+								<h2>{{nbr_visite_today}}</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="2 mt-4">
+					<div class="inforide">
+						<div class="row">
+							<div class="col-lg-3 col-md-4 col-sm-4 col-4 ridetwo">
+								<img src="./Bootstrap/img/analysis.png">
+							</div>
+							<div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
+								<h4>Nombre d'annonces en ligne </h4>
+								<h2>{{nbr_annonces}}</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="2 mt-4">
+					<div class="inforide">
+						<div class="row">
+							<div class="col-md-2 col-lg-2 col-xs-2 col-sm-2">
+								<img src="./Bootstrap/img/users-group.png">
+							</div>
+							<div class="col-lg-9 col-md-8 col-sm-8 col-8 fontsty">
+								<h4>Nombres d'utilisateur</h4>
+								<h2>{{nbr_utilisateur}}</h2>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+
+
+
+		{#33333333333333333333333333333333333333333333333333									333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		{#33333333333333333333333333333333333333333333333333	SUPRESSION ANNONCE PERIMEES		333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		{#33333333333333333333333333333333333333333333333333									333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		<div class="row ">
+
+				<form method="post" action="{{url}}?action=deletePerimes" class="mr-auto ml-auto"> 
+					<span >Nombre d'annonces périmées : {{nbr_perimees}} </span>
+					<input type="submit" value="Supprimer les annonces périmés ?" class="btn btn-danger">
+				</form>
+		</div>
+		<br>
+		{#33333333333333333333333333333333333333333333333333									333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		{#33333333333333333333333333333333333333333333333333		MODAL AJOUT RUBRIQUE		333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		{#33333333333333333333333333333333333333333333333333									333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		<div class="row">
+			<form method="post" action="{{url}}?action=ajoutRubrique" class="ml-auto"> 
+				<span>Ajouter une Rubrique : </span>
+				<input type="text" name="LIBELLE" id="libelle_rubrique" placeholder="LIBELLE RUBRIQUE">
+				<div id="erreur_message"></div>
+
+				<div id="myModal" class="modal fade in">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<a class="btn btn-default" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+								<h4 class="modal-title">PRECAUTION !</h4>
+							</div>
+							<div class="modal-body">
+								<h4>Vous êtes sur le point d'ajouter une rubrique</h4>
+								<p>Etes vous certains de continuer l'action ?</p>
+							</div>
+							<div class="modal-footer">
+								<div class="btn-group">
+									<button class="btn btn-danger" data-dismiss="modal">
+										<span class="glyphicon glyphicon-remove"></span>
+										Retour</button>
+									<input class="btn btn-success" type="submit" id="addRubrique" value="Ajouter"><span class="glyphicon glyphicon-check"></span>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			<a data-toggle="modal" href="#myModal" class="btn btn-primary col-md-2 col-lg-2 col-xs-2 col-sm-2 mr-auto">Ajouter une rubrique
+			</a>
+		</div>
+		<br>
+
+		{#33333333333333333333333333333333333333333333333333									333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		{#33333333333333333333333333333333333333333333333333		MODAL UPDATE RUBRIQUE		333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		{#33333333333333333333333333333333333333333333333333									333333333333333333333333333333333333333333333333333333333333333333333333333#}
+		<div class="row">
+			<form method="post" action="{{url}}?action=updateRubrique" class="ml-auto">
+				 <select class="custom-select input-group col-md-6 col-lg-6 col-xs-6 col-sm-6 " id="inputGroupSelect01" name="ID_RUBRIQUE">
+				<option selected>Quel rubrique a modifier ?</option>
+				{% for rub in rubs %}
+					<option value={{rub.ID_RUBRIQUE}} name="ID_RUBRIQUE">
+						{{rub.LIBELLE}}
+					</option>
+				{% endfor %}
+			</select>
+			<input type="text" name="LIBELLE" placeholder="MOFIFIER LA RUBRIQUE">
+			<div id="myModal_UpdateRubrique" class="modal fade in">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<a class="btn btn-default" data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+							<h4 class="modal-title">PRECAUTION !
+							</h4>
+						</div>
+						<div class="modal-body">
+							<h4>Vous êtes sur le point de modifier une rubrique</h4>
+							<p>Etes vous certains de continuer l'action ?</p>
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group">
+								<button class="btn btn-danger" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+									Retour</button>
+
+								<input class="btn btn-warning" type="submit" value="Modifier"><span class="glyphicon glyphicon-check"></span>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>	
+			<a data-toggle="modal" href="#myModal_UpdateRubrique" class="btn btn-warning col-md-2 col-lg-2 col-xs-2 col-sm-2 mr-auto">Modifier
+			</a>
+		</div>
+		<br>
+
+		{#333333333333333333333333333333333333333333333333333  									3333333333333333333333333333333333333333333333333333333333333333333#}
+		{#333333333333333333333333333333333333333333333333333   MODAL SUPPRESSION RUBRIQUE  	 3333333333333333333333333333333333333333333333333333333333333333333#}
+		{#333333333333333333333333333333333333333333333333333 									3333333333333333333333333333333333333333333333333333333333333333333#}
+		<div class="row">
+			<form method="post" action="{{url}}?action=deleteRubrique" class="ml-auto">
+				<select class="custom-select input-group col-md-12 col-lg-12 col-xs-12 col-sm-12" id="inputGroupSelect01" name="ID_RUBRIQUE">
+					<option selected>Selectionner la rubrique</option>
+					{% for rub in rubs %}
+						<option value={{rub.ID_RUBRIQUE}} name="ID_RUBRIQUE">
+							{{rub.LIBELLE}}
+						</option>
+					{% endfor %}
+				</select>
+
+				<div id="myModal_DeleteRubrique" class="modal fade in">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<a class="btn btn-default" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+								<h4 class="modal-title">PRECAUTION !
+								</h4>
+							</div>
+							<div class="modal-body">
+								<h4>Vous êtes sur le point de supprimer une rubrique</h4>
+								<p>Etes vous certains de continuer l'action ?</p>
+							</div>
+							<div class="modal-footer">
+								<div class="btn-group">
+									<button class="btn btn-danger" data-dismiss="modal">
+										<span class="glyphicon glyphicon-remove"></span>
+										Retour</button>
+
+									<input class="btn btn-warning" type="submit" value="Supprimer"><span class="glyphicon glyphicon-check"></span>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<a data-toggle="modal" href="#myModal_DeleteRubrique" class="btn btn-danger col-md-1 col-lg-1 col-xs-1 col-sm-1 mr-auto">Supprimer
+				</a>
+		</div>
+		<br>
+
+		{#333333333333333333333333333333333333333333333333333  									3333333333333333333333333333333333333333333333333333333333333333333#}
+		{#333333333333333333333333333333333333333333333333333   MODAL SUPPRESSION UTILISATEUR   3333333333333333333333333333333333333333333333333333333333333333333#}
+		{#333333333333333333333333333333333333333333333333333 									3333333333333333333333333333333333333333333333333333333333333333333#}
+		<div class="row">
+			<form method="post" action="{{url}}?action=deleteUser" class="ml-auto"> 
+				<select class="custom-select input-group col-md-12 col-lg-12 col-xs-12 col-sm-12" id="inputGroupSelect01" name="ID_USER">
+					<option selected>Selectionner l'utilisateur</option>
+						{% for user in users %}
+					<option value={{user.ID_USER}}>
+						{{user.NOM}}
+						|
+						{{user.PRENOM}}
+						|
+						{{user.MAIL}}
+						| Admin:{{user.ADMINISTRATEUR}}
+					</option>
+						{% endfor %}
+				</select>
+				<input type="text" placeholder=" Entrer le nom de l'utilisateur" name="searchUser">
+				
+				<div id="myModal_DeleteUser" class="modal fade in">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<a class="btn btn-default" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+								<h4 class="modal-title">PRECAUTION !</h4>
+						</div>
+						<div class="modal-body">
+							<h4>Vous êtes sur le point de supprimer cette utlisateur</h4>
+							
+							<p>Etes vous certains de continuer l'action ?</p>
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group">
+								<button class="btn btn-danger" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+									Retour</button>
+
+								<input class="btn btn-warning" type="submit" value="Supprimer"><span class="glyphicon glyphicon-check"></span>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a data-toggle="modal" href="#myModal_DeleteUser" class="btn btn-danger col-md-1 col-lg-1 col-xs-2 col-sm-2 mr-auto">Supprimer User
+			</a>
+		</div>
+		<br>
+		{#333333333333333333333333333333333333333333333333333  											 3333333333333333333333333333333333333333333333333333333333333333333#}
+		{#333333333333333333333333333333333333333333333333333   MODAL SUPPRESSION RUBRIQUE AVEC FILTRE   3333333333333333333333333333333333333333333333333333333333333333333#}
+		{#333333333333333333333333333333333333333333333333333 											 3333333333333333333333333333333333333333333333333333333333333333333#}
+		<div class="row">
+			<form method="post" action="{{url}}?action=filtreRubrique" class="ml-auto"> 
+				<select class="custom-select input-group col-md-12 col-lg-12 col-xs-12 col-sm-12" id="inputGroupSelect01" name="ID_RUBRIQUE">
+					<option selected>Selectionner la rubrique</option>
+						{% for rub in rubs %}
+							<option value={{rub.ID_RUBRIQUE}} name="ID_RUBRIQUE">
+								{{rub.LIBELLE}}
+							</option>
+						{% endfor %}
+				</select>
+				<input type="submit" value="Rechercher" class="btn btn-primary">
+			</form>
+
+			<form method="post" action="{{url}}?action=deleteAnnonce" class="">
+				<select class="custom-select input-group col-md-12 col-lg-12 col-xs-12 col-sm-12" id="inputGroupSelect01" name="ID_ANNONCE">
+					<option selected>Selectionner l'annonce</option>
+						{% for annonce in annonces_Rub %}
+							<option value={{annonce.ID_ANNONCE}} name="ID_ANNONCE">
+								{{annonce.EN_TETE}}
+							</option>
+						{% endfor %}
+				</select>
+
+			<div id="myModal_DeleteAnnonce_Filter" class="modal fade in">
+				<div class="modal-dialog">
+					<div class="modal-content">
+
+						<div class="modal-header">
+							<a class="btn btn-default" data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span>
+							</a>
+							<h4 class="modal-title">PRECAUTION !
+							</h4>
+						</div>
+						<div class="modal-body">
+							<h4>Vous êtes sur le point de supprimer une annonce</h4>
+							<p>Etes vous certains de continuer l'action ?</p>
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group">
+								<button class="btn btn-danger" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+									Retour</button>
+								<input class="btn btn-warning" type="submit" value="Supprimer"><span class="glyphicon glyphicon-check"></span>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a data-toggle="modal" href="#myModal_DeleteAnnonce_Filter" class="btn btn-danger col-md-1 col-lg-1 col-xs-2 col-sm-2 mr-auto">Supprimer l'annonce
+			</a>
+		</div>
+		<br>
+	</div>
+		{#333333333333333333333333333333333333333333333333333  										  3333333333333333333333333333333333333333333333333333333333333333333#}
+		{#333333333333333333333333333333333333333333333333333   MODAL SUPPRESSION MOT DE PASSE USER   3333333333333333333333333333333333333333333333333333333333333333333#}
+		{#333333333333333333333333333333333333333333333333333 										  3333333333333333333333333333333333333333333333333333333333333333333#}
+		<div class="row">
+			<form method="post" action="{{url}}?action=deleteMDP" class="ml-auto"> 
+				<select class="custom-select input-group col-md-12 col-lg-12 col-xs-12 col-sm-12" id="inputGroupSelect01" name="ID_USER">
+					<option selected>Selectionner l'utilisateur</option>
+						{% for user in users %}
+					<option value={{user.ID_USER}}>
+						{{user.NOM}}
+						|
+						{{user.PRENOM}}
+						|
+						{{user.MAIL}}
+						| Admin:{{user.ADMINISTRATEUR}}
+					</option>
+						{% endfor %}
+				</select>
+
+				<div id="myModal_DeleteMDP" class="modal fade in">
+					<div class="modal-dialog">
+						<div class="modal-content">
+
+							<div class="modal-header">
+								<a class="btn btn-default" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+								</a>
+								<h4 class="modal-title">PRECAUTION !</h4>
+						</div>
+						<div class="modal-body">
+							<h4>Vous êtes sur le point de supprimer le mot de passe de cette utilisateur</h4>
+							
+							<p>Etes vous certains de continuer l'action ?</p>
+						</div>
+						<div class="modal-footer">
+							<div class="btn-group">
+								<button class="btn btn-danger" data-dismiss="modal">
+									<span class="glyphicon glyphicon-remove"></span>
+									Retour</button>
+
+								<input class="btn btn-warning" type="submit" value="Supprimer"><span class="glyphicon glyphicon-check"></span>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<a data-toggle="modal" href="#myModal_DeleteMDP" class="btn btn-danger col-md-1 col-lg-1 col-xs-2 col-sm-2 mr-auto">Réinitialiser MDP
+			</a>
+		</div>
+		<br>
+		
+	{############################################################   			    #############################################################}
+	{############################################################   MES ANNONCES    #############################################################}
+	{############################################################   			    #############################################################}
+
+		{% for annonce in annonces %}
+			<div class="container list_annonce" name="{{annonce.ID_ANNONCE}}">
+				<div class="row">
+					<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 ml-auto mr-auto Entete " a href="#">
+						{{annonce.EN_TETE}}
+					</div>
+				</div>
+				<div class="row ">
+					<div class="ml-auto mr-2">
+						<form method="post" action="{{url}}?action=updateAnnonce">
+							<input name="ID_ANNONCE" value="{{annonce.ID_ANNONCE}}" type="hidden">
+							<input type="submit" class="btn btn-primary" value="Edit" id="edit">
+						</form>
+					</div>
+
+					<form method="post" action="{{url}}?action=vueAnnonce">
+						<input type="hidden" name="ID_ANNONCE" value="{{annonce.ID_ANNONCE}}">
+						<input type="submit" class="btn btn-primary mr-2" value="View" id="view">
+					</form>
+
+					<form method="post" action="{{url}}?action=deleteAnnonce">
+						<input type="hidden" name="ID_ANNONCE" value="{{annonce.ID_ANNONCE}}">
+						<input type="submit" class="btn btn-primary mr-2" value="Delete" id="Delete">
+					</form>
+				</div>
+				<div class="row">
+					<article class="col-md-3 col-lg-3 col-xs-12 col-sm-12">
+							
+								{% for image in images %}
+								{% if image.ID_ANNONCE == annonce.ID_ANNONCE %}
+
+										
+												<img src="{{image.HREF}}" class="d-block w-50 mr-auto ml-auto " alt="...">
+									
+										
+									{% endif %}
+											{% endfor %}
+
+										
+									
+							
+					</article>
+					<article class="col-md-9 col-lg-9 col-xs-12 col-sm-12 ml-auto mr-auto">
+						<div>
+							<br>
+							<p>{{annonce.CORP}}</p>
+						</div>
+
+					</article>
+					<p id="dd" class="ml-auto mr-2">
+						Date de dépot :
+						{{annonce.DATE_DEPOT}}
+						| Date d'expiration :
+						{{annonce.DATE_VALIDITE}}</p>
+				</div>
+			</div>
+
+			<br>
+		{% endfor %}
+	
+
+
+{% endblock %}

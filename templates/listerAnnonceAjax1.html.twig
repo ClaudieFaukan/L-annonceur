@@ -1,0 +1,92 @@
+{% extends "layout.twig" %}
+
+		
+			{% block head %}Toutes nos annonces - 	{% for rub in rubs %}
+								{% if rub.ID_RUBRIQUE == rubriqueafficher %}
+								{{rub.LIBELLE}}
+									{% else %}
+										
+								{% endif %}
+							{% endfor %}
+			{% endblock %}
+
+	{% block titre %}L'annonceur{% endblock %}
+
+	{% block userName %}
+		{% if prenom is defined %}
+			{{prenom}} {{nom}}
+		{% else %}
+			Visiteur
+		{% endif %}
+	{% endblock %}
+
+	{% block strConnection %}
+		{% if prenom is defined %}
+			Mon Compte
+			{% else %}
+				Se Connecter/ S'inscrire
+		{% endif %}
+	{% endblock %}
+
+	{% block filAriane %}<a href="{{url}}">Accueil</a> &gt; 
+		<a href="{{url}}?action=selectRubrique">
+			Rubrique
+		</a>
+	{% endblock %}
+
+	{% block content %}
+	
+
+		<body>
+			{##############################################		HEADER 		#########################################################################}
+			<div class="container-fluid">
+				<div class="row">
+					<a href="{{url}}?action=createAnnonce" class="btn btn-primary col-md-4 col-lg-4 col-xs-12 col-sm-12 ml-auto">
+						<span>
+							<strong>
+								<i class="fas fa-plus">
+									Créer une annonce
+								</i>
+							</strong>
+						</span>
+					</a>
+				
+					<div class="input-group col-md-3 col-lg-3 col-xs-3 col-sm-3 mr-auto">
+						<div class="input-group-prepend">
+							<form action="#" method="post">
+								<label class="input-group-text" for="rubrique">Rubrique</label>
+						</div>
+						<select class="custom-select" id="rubrique" name="ID_RUBRIQUE">
+						<option disabled selected> Que recherhez vous ?</option>
+							{% for rub in rubs %}
+										<option value={{rub.ID_RUBRIQUE}}>
+											{{rub.LIBELLE}}
+										</option>
+							{% endfor %}
+						</select>
+							<div class="input-group-prepend">
+							</div>
+						</form>
+					</div>
+
+				</div>
+				<hr>
+				{##############################################		ANNONCES RUBRIQUE 		#########################################################################}
+	
+					
+					<div class="container list_annonce">
+							<div class="row">
+								<article class="col-md-3 col-lg-3 col-xs-12 col-sm-12" id="retourServeur">
+							
+									
+								</article>
+							</div>
+							<br>
+
+				
+				{##############################################		PAGINATION 		#########################################################################}
+	
+			</div>
+		</body>
+
+	{% endblock %}

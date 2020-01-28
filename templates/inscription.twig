@@ -1,0 +1,68 @@
+{% extends "layout.twig" %}
+
+{% block head %}Inscription/Connexion{% endblock %}
+
+{% block strConnection %}Se Connecter/S'inscrire{% endblock %}
+{% block userName %}Visiteur{% endblock %}
+
+{% block content %}   
+
+    <hr>
+    <br>
+    <div class="container-fluid text-center">
+     <h1 class="titre"> Se connecter </h1>
+    <form action="{{url}}?action=cnx" method="POST">
+      <div class="form-group">
+        <label for="InputEmail">Adresse mail</label>
+        <input type="text" name='email_cnx'class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="InputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+        <div class="erreur_message"></div>
+      </div>
+      <input type='hidden' name='connexion'>
+      <div class="form-group">
+        <label for="InputPassword">Mot de passe</label>
+        <input type="password" name ='pass_cnx' class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="InputPassword" placeholder="Password">
+        <div class="erreur_message"></div>
+      </div>
+       
+      <div class="form-group">
+        <a href="{{url}}?action=vueforgetpassword">Mot de passe oublié ?<a/>
+      </div>
+      <br>
+      <input id="sub_connexion" type="submit" class="btn btn-primary col-md-3 col-lg-3 col-xs-12 col-sm-12 mr-auto ml-auto" value="Se connecter">
+    </form>
+
+     <br>
+    <hr>
+    <form action="{{url}}?action=form_insc" method="post">
+      <h1 class="titre">Inscription</h1>
+      <br>
+      <div class="form-group">
+        <label for="Email_insc">Adresse mail</label>
+        <input type="text" name='email' class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="Email_insc" aria-describedby="emailHelp" placeholder="Entrer votre email">
+        <div class="erreur_message"></div>
+      </div>
+      <div class="form-group">
+        <label for="Name">Nom</label>
+        <input type="Name" name='nom' class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="Name_id" aria-describedby="" placeholder="Votre nom">
+        <div class="erreur_message"></div>
+      </div>
+      <div class="form-group">
+        <label for="Name">Prenom</label>
+        <input type="firstName" name='prenom'class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="FirstName_id" aria-describedby="" placeholder="Votre prénom">
+        <div class="erreur_message"></div>
+      </div>
+        <div class="form-group">
+        <label for="Password_insc">Mot de passe</label>
+        <input type="password" name='mdp' class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="Password_insc" placeholder="Mot de passe">
+        <div class="erreur_message"></div>
+      </div>
+       <div class="form-group">
+        <label for="Password_insc1">Confimer Mot de passe</label>
+        <input type="password" name='mdp1' class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="Password_insc1" placeholder="Mot de passe">
+        <div class="erreur_message"></div>
+      </div>
+
+      <input type="submit" id="sub_insc" class="btn btn-primary col-md-3 col-lg-3 col-xs-12 col-sm-12 mr-auto ml-auto" value="S'inscire">
+    </form>
+  </div>
+    {% endblock %}

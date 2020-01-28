@@ -1,0 +1,30 @@
+{% extends "layout.twig" %}
+
+{% block head %}
+	Mon compte
+{% endblock %}
+
+{% block titre %}L'annonceur
+{% endblock %}
+
+{% block userName %}
+	{% if prenom is defined %}
+		{{prenom}}
+		{{nom}}
+	{% else %}
+		Visiteur
+	{% endif %}
+{% endblock %}
+
+{% block strConnection %}
+	{% if prenom is defined %}
+		Mon Compte
+	{% else %}
+		Se Connecter/ S'inscrire
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+
+
+{% endblock %}

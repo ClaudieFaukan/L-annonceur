@@ -1,0 +1,53 @@
+{% extends "layout.twig" %}
+
+{% block head %}
+	Réinitialiser votre MDP
+{% endblock %}
+
+{% block titre %}L'annonceur
+{% endblock %}
+
+{% block userName %}
+	{% if prenom is defined %}
+		{{prenom}}
+		{{nom}}
+	{% else %}
+		Visiteur
+	{% endif %}
+{% endblock %}
+
+{% block strConnection %}
+	{% if prenom is defined %}
+		Mon Compte
+	{% else %}
+		Se Connecter/ S'inscrire
+	{% endif %}
+{% endblock %}
+
+{% block content %}
+ <div class="container-fluid text-center">
+	<h1>Votre mot de passe a été réinitialiser </h1>
+			<h4> Veuillez en saisir en nouveau </h4>
+
+
+    <form action="{{url}}?action=newmdp" method="post">
+    <input type="hidden" name="ID_USER" value="{{user.ID_USER}}">
+      <div class="form-group">
+
+			 <div class="form-group">
+	
+        <label for="Password_update">Mot de passe</label>
+        <input type="password"  class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="Password_update" placeholder="Mot de passe">
+        <div class="erreur_message"></div>
+      </div>
+       <div class="form-group">
+        <label for="Password_update1">Confirmer mot de passe</label>
+	<input type="password" name='PASSWORD' class="form-control col-md-3 col-lg-3 col-xs-12 col-sm-12 ml-auto mr-auto" id="Password_update1" placeholder="Confirmer mot de passe">
+        <div class="erreur_message"></div>
+      </div>
+    <input type="submit" id="reinitMDP" cclass="btn btn-primary col-md-3 col-lg-3 col-xs-12 col-sm-12 mr-auto ml-auto" value="Modifier">
+  </div>
+    </form>
+	   </div>
+	 
+{% endblock %}
